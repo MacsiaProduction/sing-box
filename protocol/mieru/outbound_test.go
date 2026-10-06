@@ -32,6 +32,7 @@ func (s *proofStream) Write(p []byte) (int, error) {
 	s.written = append(s.written, p...)
 	return len(p), nil
 }
+
 func (s *proofStream) Read(p []byte) (int, error) {
 	if s.reply == nil {
 		return 0, io.EOF
