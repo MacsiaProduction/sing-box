@@ -94,7 +94,7 @@ func (o *Outbound) DialContext(ctx context.Context, network string, destination 
 			return nil, err
 		}
 		return &streamer{
-			PacketConn: mierucommon.NewUDPAssociateWrapper(mierucommon.NewPacketOverStreamTunnel(streamConn)),
+			PacketConn: newUDPAssociatePacketConn(streamConn),
 			Remote:     destination,
 		}, nil
 	default:
@@ -118,7 +118,7 @@ func (o *Outbound) ListenPacket(ctx context.Context, destination M.Socksaddr) (n
 	if err != nil {
 		return nil, err
 	}
-	return mierucommon.NewUDPAssociateWrapper(mierucommon.NewPacketOverStreamTunnel(streamConn)), nil
+	return newUDPAssociatePacketConn(streamConn), nil
 }
 
 func (o *Outbound) Close() error {
